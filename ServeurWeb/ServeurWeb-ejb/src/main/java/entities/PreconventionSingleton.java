@@ -26,11 +26,11 @@ import javax.jms.Topic;
 @Singleton
 @LocalBean
 public class PreconventionSingleton {
-    @Resource(lookup = "jms/PreconventionDeposee")
-    private Topic topic;
+    //@Resource(lookup = "jms/PreconventionDeposee")
+    //private Topic topic;
     
-    @Resource(lookup="jms/GestionnairePreconventions")
-    private Queue queue;
+    //@Resource(lookup="jms/GestionnairePreconventions")
+    //private Queue queue;
     
     @Inject
     private JMSContext context;
@@ -48,7 +48,7 @@ public class PreconventionSingleton {
         return INSTANCE;
     }
     
-     public int ajouterPreConvention(String nom, String prenom, String numeroEtudiant, String niveau, String intitule, String compagnie, String numeroContrat, String denomination, String siren, Date debut, Date fin, int gratification, String resume) {      
+    public int ajouterPreConvention(String nom, String prenom, String numeroEtudiant, String niveau, String intitule, String compagnie, String numeroContrat, String denomination, String siren, Date debut, Date fin, int gratification, String resume) {      
         Preconvention prec = new Preconvention(lastid, nom, prenom, numeroEtudiant, niveau, intitule, compagnie, numeroContrat, denomination, siren, debut, fin, gratification, resume);
         this.preconvs.put(lastid, prec);
         System.out.println("preconv ajouté");
@@ -99,7 +99,7 @@ public class PreconventionSingleton {
     public Preconvention deposerPreconv(int refPrec) {
         Preconvention prec = preconvs.get(refPrec);
         //ObjectMessage om = context.createObjectMessage(prec);
-        context.createProducer().send(topic, prec);
+        //context.createProducer().send(topic, prec);
         return prec;
     }
 }

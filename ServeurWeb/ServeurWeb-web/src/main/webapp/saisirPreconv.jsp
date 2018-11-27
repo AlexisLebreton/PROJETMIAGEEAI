@@ -28,7 +28,7 @@
             
             <h2>Saisir preconvention</h2>
             
-            <form id="formulaire" action="ajoutPreconv.jsp" method="post">
+            <form id="formulaire" action="AjouterPreconvServlet" method="post">
 
                 <h3>Etudiant</h3>
                 <div class="form-group">
