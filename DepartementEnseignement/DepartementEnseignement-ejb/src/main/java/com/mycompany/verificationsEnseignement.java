@@ -17,9 +17,9 @@ public class verificationsEnseignement {
     public PreconventionSingleton ps;
        
     public Preconvention vérifier(Preconvention p){
-     /*   System.out.println("Voici les détails de la pre convention \n \t Nom prenom étudiant:"+p.getEtudiant().getPrenom()+" "+p.getEtudiant().getNom()+
-        "\n\t diplome préparé: "+p.getDiplome()+"\n\t sujet "+p.getSujetStage() 
-        ); */
+       System.out.println("Voici les détails de la pre convention \n \t Nom prenom étudiant:"+p.getEtudiant().getPrenom()+" "+p.getEtudiant().getNom()+
+        "\n\t diplome préparé: "+p.getDiplome()+"\n\t sujet "+p.getResume()
+        ); 
         
         System.out.println("validez-vous ce sujet? O/N");
         Scanner sc  = new Scanner(System.in);
