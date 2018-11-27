@@ -20,11 +20,16 @@ public class Etudiant implements Serializable{
     private String nom;
     private String prenom;
     private String numeroEtudiant;
+    private String diplomeActuel;
 
     public Etudiant(String nom, String prenom, String numeroEtudiant) {
         this.nom = nom;
         this.prenom = prenom;
         this.numeroEtudiant = numeroEtudiant;
+    }
+
+    public String getDipActuel() {
+        return diplomeActuel;
     }
 
     public String getNom() {

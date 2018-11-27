@@ -5,8 +5,6 @@
  */
 package entities;
 
-import utilities.Etudiant;
-import utilities.Preconvention;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,6 +16,8 @@ import javax.jms.JMSContext;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 import javax.jms.Topic;
+import utilities.Etudiant;
+import utilities.Preconvention;
 
 /**
  *
@@ -26,11 +26,11 @@ import javax.jms.Topic;
 @Singleton
 @LocalBean
 public class PreconventionSingleton {
-    //@Resource(lookup = "jms/PreconventionDeposee")
-    //private Topic topic;
+    @Resource(lookup = "jms/PreconventionDeposee")
+    private Topic topic;
     
-    //@Resource(lookup="jms/GestionnairePreconventions")
-    //private Queue queue;
+    @Resource(lookup="jms/GestionnairePreconventions")
+    private Queue queue;
     
     @Inject
     private JMSContext context;
@@ -38,7 +38,7 @@ public class PreconventionSingleton {
     private static PreconventionSingleton INSTANCE = null;
     
     private HashMap<Integer, Preconvention> preconvs = new HashMap<>();
-    private int lastid=0;
+    private Integer lastid=0;
     
     public static PreconventionSingleton getInstance()
     {           
@@ -48,16 +48,19 @@ public class PreconventionSingleton {
         return INSTANCE;
     }
     
-    public int ajouterPreConvention(String nom, String prenom, String numeroEtudiant, String niveau, String intitule, String compagnie, String numeroContrat, String denomination, String siren, Date debut, Date fin, int gratification, String resume) {      
-        Preconvention prec = new Preconvention(lastid, nom, prenom, numeroEtudiant, niveau, intitule, compagnie, numeroContrat, denomination, siren, debut, fin, gratification, resume);
+     public Preconvention ajouterPreConventionint (int refConv, String nom, String prenom, String numeroEtudiant, String niveau, String intitule, String compagnie, String numeroContrat, String denomination, String siren, Date debut, Date fin, long gratification, String resume){      
+        Preconvention prec = new Preconvention(lastid, nom,prenom,numeroEtudiant,niveau,intitule,compagnie,numeroContrat,denomination,siren,debut,fin,gratification,resume );
         this.preconvs.put(lastid, prec);
-        System.out.println("preconv ajouté");
-        // deposerPreconv(lastid);
+       // deposerPreconv(lastid);
         this.lastid ++;        
-        return prec.getRefConv();
+        return prec;
     }
-    
-    
+     
+    public void ajouterPreConvention(Preconvention prec) {      
+        this.preconvs.put(lastid, prec);
+        this.lastid ++;   
+    }
+
     public Preconvention validerJuridique(int refPreConv, boolean v,String cause) {
         Preconvention prec = preconvs.get(refPreConv);
         prec.getRepJur().setValRep(v);
@@ -81,7 +84,6 @@ public class PreconventionSingleton {
         context.createProducer().send(queue, prec);
         return prec;
     }
-   
     
     public Preconvention getPrevention(int refPreconv) {
         return this.preconvs.get(refPreconv);
@@ -99,7 +101,7 @@ public class PreconventionSingleton {
     public Preconvention deposerPreconv(int refPrec) {
         Preconvention prec = preconvs.get(refPrec);
         //ObjectMessage om = context.createObjectMessage(prec);
-        //context.createProducer().send(topic, prec);
+        context.createProducer().send(topic, prec);
         return prec;
     }
 }
