@@ -6,6 +6,7 @@
 package msghandler;
 
 
+import com.mycompany.verificationsEnseignement;
 import entities.PreconventionSingleton;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
+import utilities.Preconvention;
 
 /**
  *
@@ -36,8 +38,6 @@ public class MiseajourPreconv implements MessageListener {
     @EJB
     PreconventionSingleton precs;
     
-    public traitementMetier juridique;
-    public VérificationAdministrative scolarité;
     public verificationsEnseignement enseign;
     
     public MiseajourPreconv() {
@@ -45,23 +45,24 @@ public class MiseajourPreconv implements MessageListener {
     
     @Override
     public void onMessage(Message message) {
-               if (message instanceof ObjectMessage) {
+           if (message instanceof ObjectMessage) {
              try {
                  ObjectMessage om = (ObjectMessage) message;
                  Object obj = om.getObject();
                  if (obj instanceof Preconvention) {
                      Preconvention prec = (Preconvention) obj;
                      System.out.println("Preconvention " + prec.getRefConv() + " tdéposée");
-                     //déclencher les 3 vérifications à faire (juridique + enseignement +
-                     Preconvention p = juridique.validationJuridique(prec);
-                     p = scolarité.vérifierEtud(p);
-                     p= enseign.vérifier(p);
+                     
+                     //déclencher lA vérification
+                     Preconvention p = enseign.vérifier(prec);
                      System.out.println("vérifications terminés pour "+p.toString());
                  }
              } catch (JMSException ex) {
                  Logger.getLogger(MiseajourPreconv.class.getName()).log(Level.SEVERE, null, ex);
              }
         }
-    }
+
+        }
+    
     
 }

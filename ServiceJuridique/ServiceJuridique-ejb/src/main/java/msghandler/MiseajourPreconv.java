@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.alexis.lebreton.utilities.server;
+package msghandler;
 
-import com.alexis.lebreton.serviceEnseignement.verificationsEnseignement;
-import com.alexis.lebreton.serviceJuridique.traitementMetier;
-import com.alexis.lebreton.serviceScolarite.VérificationAdministrative;
-import com.alexis.lebreton.utilities.Preconvention;
-import com.alexis.lebreton.utilities.entities.PreconventionSingleton;
+import com.mycompany.traitementMetier;
+import entities.PreconventionSingleton;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
@@ -19,6 +16,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
+import utilities.Preconvention;
 
 /**
  *
@@ -40,8 +38,6 @@ public class MiseajourPreconv implements MessageListener {
     PreconventionSingleton precs;
     
     public traitementMetier juridique;
-    public VérificationAdministrative scolarité;
-    public verificationsEnseignement enseign;
     
     public MiseajourPreconv() {
     }
@@ -55,10 +51,9 @@ public class MiseajourPreconv implements MessageListener {
                  if (obj instanceof Preconvention) {
                      Preconvention prec = (Preconvention) obj;
                      System.out.println("Preconvention " + prec.getRefConv() + " tdéposée");
-                     //déclencher les 3 vérifications à faire (juridique + enseignement +
+                     
+                     //déclencher lA vérification
                      Preconvention p = juridique.validationJuridique(prec);
-                     p = scolarité.vérifierEtud(p);
-                     p= enseign.vérifier(p);
                      System.out.println("vérifications terminés pour "+p.toString());
                  }
              } catch (JMSException ex) {
