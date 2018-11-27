@@ -26,11 +26,11 @@ import javax.jms.Topic;
 @Singleton
 @LocalBean
 public class PreconventionSingleton {
-    //@Resource(lookup = "jms/PreconventionDeposee")
-    //private Topic topic;
+    @Resource(lookup = "jms/PreconventionDeposee")
+    private Topic topic;
     
-    //@Resource(lookup="jms/GestionnairePreconventions")
-    //private Queue queue;
+    @Resource(lookup="jms/GestionnairePreconventions")
+    private Queue queue;
     
     @Inject
     private JMSContext context;
@@ -98,8 +98,8 @@ public class PreconventionSingleton {
     //sert à déposer une preconvention sur le topic dédié au dépot de demande préconventions
     public Preconvention deposerPreconv(int refPrec) {
         Preconvention prec = preconvs.get(refPrec);
-        //ObjectMessage om = context.createObjectMessage(prec);
-        //context.createProducer().send(topic, prec);
+        ObjectMessage om = context.createObjectMessage(prec);
+        context.createProducer().send(topic, prec);
         return prec;
     }
 }
