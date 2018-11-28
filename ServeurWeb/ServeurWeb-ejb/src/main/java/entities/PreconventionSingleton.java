@@ -52,9 +52,14 @@ public class PreconventionSingleton {
         Preconvention prec = new Preconvention(lastid, nom, prenom, numeroEtudiant, niveau, intitule, compagnie, numeroContrat, denomination, siren, debut, fin, gratification, resume);
         this.preconvs.put(lastid, prec);
         System.out.println("preconv ajouté");
-        // deposerPreconv(lastid);
+        deposerPreconv(lastid);
         this.lastid ++;        
         return prec.getRefConv();
+    }
+    
+    public void majPreConvention(Preconvention preconv){
+        int refConv = preconv.getRefConv();
+        this.preconvs.put(refConv, preconv);
     }
     
     
