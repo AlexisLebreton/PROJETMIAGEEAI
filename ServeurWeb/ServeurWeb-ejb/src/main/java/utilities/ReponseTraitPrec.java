@@ -5,11 +5,13 @@
  */
 package utilities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ben
  */
-public class ReponseTraitPrec {
+public class ReponseTraitPrec implements Serializable{
     
     private Boolean valRep;
     private String causeRep;

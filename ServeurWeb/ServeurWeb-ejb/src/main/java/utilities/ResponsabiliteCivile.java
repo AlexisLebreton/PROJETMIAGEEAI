@@ -5,11 +5,13 @@
  */
 package utilities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Alexis LEBRETON
  */
-public class ResponsabiliteCivile {
+public class ResponsabiliteCivile implements Serializable {
     
     private String compagnie;
     private String numeroContrat;

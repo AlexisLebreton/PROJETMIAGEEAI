@@ -50,7 +50,7 @@ public class EnvoieReponse implements MessageListener {
                 System.out.println("Server Web Received: " + preconvTraite.toString());
                 preconvSing.majPreConvention(preconvTraite);
             } catch (JMSException ex) {
-                Logger.getLogger(GestionMessagesTopic.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(GestionMessagesTopic.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

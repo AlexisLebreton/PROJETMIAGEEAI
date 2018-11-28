@@ -5,11 +5,13 @@
  */
 package utilities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Alexis LEBRETON
  */
-public class Entreprise {
+public class Entreprise implements Serializable {
     
     private String denomination;
     private String siren;
