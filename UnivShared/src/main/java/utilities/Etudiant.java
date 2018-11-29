@@ -7,8 +7,6 @@ package utilities;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import javax.ejb.LocalBean;
-import javax.ejb.Singleton;
 
 /**
  *

@@ -11,11 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javax.annotation.Resource;
-import javax.ejb.LocalBean;
-import javax.ejb.Singleton;
-import javax.inject.Inject;
-import javax.jms.JMSContext;
-import javax.jms.Topic;
+
 
 /**
  *
