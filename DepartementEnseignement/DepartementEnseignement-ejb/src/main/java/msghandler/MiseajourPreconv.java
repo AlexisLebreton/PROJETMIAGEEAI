@@ -45,13 +45,14 @@ public class MiseajourPreconv implements MessageListener {
     
     @Override
     public void onMessage(Message message) {
+        System.out.println("here");
            if (message instanceof ObjectMessage) {
              try {
                  ObjectMessage om = (ObjectMessage) message;
                  Object obj = om.getObject();
                  if (obj instanceof Preconvention) {
                      Preconvention prec = (Preconvention) obj;
-                     System.out.println("Preconvention " + prec.getRefConv() + " tdéposée");
+                     System.out.println("Preconvention " + prec.getRefConv() + " déposée");
                      
                      //déclencher lA vérification
                      Preconvention p = enseign.vérifier(prec);

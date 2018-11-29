@@ -105,6 +105,7 @@ public class PreconventionSingleton {
         Preconvention prec = preconvs.get(refPrec);
         ObjectMessage om = context.createObjectMessage(prec);
         context.createProducer().send(topic, prec);
+        System.out.println("msg send to topic");
         return prec;
     }
 }
