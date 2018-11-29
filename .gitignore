@@ -1,3 +1,9 @@
 /ServeurWeb/ServeurWeb-ejb/target/
 /ServeurWeb/ServeurWeb-web/target/
 /ServeurWeb/ServeurWeb-ear/target/
+/DepartementEnseignement/DepartementEnseignement-ejb/target/
+/DepartementEnseignement/DepartementEnseignement-ear/target/
+/DepartementEnseignement/DepartementEnseignement-web/target/
+/GestionPreconv/GestionPreconv-ejb/target/
+/GestionPreconv/GestionPreconv-ear/target/
+/GestionPreconv/GestionPreconv-web/target/
