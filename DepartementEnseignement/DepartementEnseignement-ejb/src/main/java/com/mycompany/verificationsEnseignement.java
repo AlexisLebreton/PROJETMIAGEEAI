@@ -5,9 +5,9 @@
  */
 package com.mycompany;
 
-import entities.PreconventionSingleton;
+import com.mycompany.deptens.entities.PreconventionSingleton;
 import java.util.Scanner;
-import utilities.Preconvention;
+import com.mycompany.univshared.utilities.Preconvention;
 
 /**
  *

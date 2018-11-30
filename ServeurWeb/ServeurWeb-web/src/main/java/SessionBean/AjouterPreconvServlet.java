@@ -6,7 +6,7 @@
 package SessionBean;
 
 
-import entities.PreconventionSingleton;
+import com.mycompany.serverw.entities.PreconventionSingleton;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -47,13 +47,11 @@ public class AjouterPreconvServlet extends HttpServlet {
         Date debut = new Date();
         Date fin = new Date();
         
-        try {
+        
             /* TODO output your page here. You may use following sample code. */
-            debut = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("debut"));
-            fin = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("fin"));
-                    } catch (ParseException ex) {
-            Logger.getLogger(AjouterPreconvServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            debut = new Date();//new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("debut"));
+            fin = new Date();//SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("fin"));
+                   
         
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
@@ -86,7 +84,7 @@ public class AjouterPreconvServlet extends HttpServlet {
     private PreconventionSingleton lookupPreconventionSingletonBean() {
         try {
             javax.naming.Context c = new InitialContext();
-            return (PreconventionSingleton) c.lookup("java:global/ServeurWeb-ear/ServeurWeb-ejb-1.0-SNAPSHOT/PreconventionSingleton!entities.PreconventionSingleton");
+            return (PreconventionSingleton) c.lookup("java:global/ServeurWeb-ear/ServeurWeb-ejb-1.0-SNAPSHOT/PreconventionSingleton!com.mycompany.serverw.entities.PreconventionSingleton");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

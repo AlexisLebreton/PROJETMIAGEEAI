@@ -5,8 +5,9 @@
  */
 package com.mycompany;
 
-import entities.PreconventionSingleton;
-import utilities.Preconvention;
+
+import com.mycompany.juridique.entities.PreconventionSingleton;
+import com.mycompany.univshared.utilities.Preconvention;
 
 /**
  *

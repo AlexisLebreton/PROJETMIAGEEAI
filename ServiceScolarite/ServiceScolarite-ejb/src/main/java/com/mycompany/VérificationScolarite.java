@@ -5,10 +5,11 @@
  */
 package com.mycompany;
 
-import entities.EtudiantsSingleton;
-import entities.PreconventionSingleton;
-import utilities.Diplome;
-import utilities.Preconvention;
+
+import com.mycompany.scol.entities.EtudiantsSingleton;
+import com.mycompany.scol.entities.PreconventionSingleton;
+import com.mycompany.univshared.utilities.Diplome;
+import com.mycompany.univshared.utilities.Preconvention;
 
 
 
@@ -22,9 +23,9 @@ public class VérificationScolarite {
     
     public Preconvention vérifierEtud(Preconvention p){
         Diplome diplomePrecon= p.getDiplome();
-        String diplomeReel = p.getEtudiant().getDipActuel();
+        Diplome diplomeReel = p.getEtudiant().getDipActuel();
         String cause = "";
-        Boolean verif = etdSingl.exists(p.getEtudiant().getNumeroEtudiant())&& diplomePrecon.equals(diplomeReel);
+        Boolean verif = etdSingl.exists(p.getEtudiant().getNumeroEtudiant())&& diplomePrecon.getIntitule().equals(diplomeReel.getIntitule());
         if(!verif ){
         cause="L etudiant mentionne n existe pas, ou son diplome préparé n est pas valide";
     }        

@@ -6,3 +6,10 @@
 /DepartementEnseignement/DepartementEnseignement-web/target/
 
 /GestionPreconv/GestionPreconv-ejb/target/
+/UnivShared/target/
+/ServiceJuridique/ServiceJuridique-ejb/target/
+/ServiceJuridique/ServiceJuridique-web/target/
+/ServiceJuridique/ServiceJuridique-ear/target/
+/ServiceScolarite/ServiceScolarite-ejb/target/
+/ServiceScolarite/ServiceScolarite-web/target/
+/ServiceScolarite/ServiceScolarite-ear/target/

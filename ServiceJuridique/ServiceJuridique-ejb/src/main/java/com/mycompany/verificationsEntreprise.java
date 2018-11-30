@@ -5,8 +5,8 @@
  */
 package com.mycompany;
 import com.google.gson.Gson;
-import fr.miage.toulouse.m2.eai.clientrest.metiersiren.Records;
-import fr.miage.toulouse.m2.eai.clientrest.metiersiren.SirenPOJO;
+import com.mycompany.juridique.metiersiren.Records;
+import com.mycompany.juridique.metiersiren.SirenPOJO;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
