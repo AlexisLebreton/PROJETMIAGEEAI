@@ -20,6 +20,9 @@ import javax.ws.rs.core.Response;
 public class verificationsEntreprise {
     
   public static String getSIREN(String siren){
+      //variable résultat
+      String result ="";
+      
         // I/O JSON
         Gson gson = new Gson();
 
@@ -47,12 +50,14 @@ public class verificationsEntreprise {
         System.out.println("Résultat: " + response.getStatus());
         Records [] rec = model.getRecords();
         if (rec.length == 0)
-            System.out.println("Rien n'a été trouvé. Mauvais SIREN ?");
+            System.out.println("Rien n'a été trouvé. Mauvais SIREN ?");        
         else {
-            for(int i = 0; i < rec.length ; i++)
+            for(int i = 0; i < rec.length ; i++){
                 System.out.println("Raison sociale : " + model.getRecords()[i].getFields().getL1_normalisee() + ", Date création entité : " + model.getRecords()[i].getFields().getDcren() + ", Activité : " + model.getRecords()[i].getFields().getActivite());
-        }
-      return "test";
+            }
+            result="siren found";
+            }
+      return result;
     }
   
 

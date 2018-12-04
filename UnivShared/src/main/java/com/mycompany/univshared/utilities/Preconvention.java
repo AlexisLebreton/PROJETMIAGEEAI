@@ -151,6 +151,13 @@ public class Preconvention implements Serializable {
         return diffDays / 30;
     }
     
+    @Override
+    public String toString(){
+         return "Voici les détails de la pre convention \n \t Nom prenom étudiant:"+this.getEtudiant().getPrenom()+" "+this.getEtudiant().getNom()+
+        "\n\t diplome préparé: "+this.getDiplome().getIntitule()+"\n\t sujet "+this.getResume();
+        
+    }
+    
     public boolean isAllRep(){
         if (this.RepJur != null && this.RepEn != null && this.RepSco != null){
             return true;

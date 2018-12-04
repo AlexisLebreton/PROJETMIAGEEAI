@@ -25,8 +25,7 @@ import com.mycompany.univshared.utilities.Preconvention;
  * @author maha-
  */
 @MessageDriven(activationConfig = {
-
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "PreconventionDeposee")
+    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "PreconventionDeposee")
 
     ,
         @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "PreconventionDeposeeSC")
@@ -34,47 +33,51 @@ import com.mycompany.univshared.utilities.Preconvention;
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
 })
 public class MiseajourPreconvScol implements MessageListener {
+
     @EJB
     PreconventionSingleton precs;
-    
+
     @EJB
-    EtudiantsSingleton etdSingl ;
-    
-    
+    EtudiantsSingleton etdSingl;
+
     public MiseajourPreconvScol() {
     }
-    
+
     @Override
     public void onMessage(Message message) {
-            System.out.println("scolarite");
-               if (message instanceof ObjectMessage) {
-             try {
-                 ObjectMessage om = (ObjectMessage) message;
-                 Object obj = om.getObject();
-                 if (obj instanceof Preconvention) {
-                     Preconvention prec = (Preconvention) obj;
-                     System.out.println("Preconvention " + prec.getRefConv() + " tdéposée");
-                     //déclencher la vérifications : enseignement                      
-                     Preconvention p = vérifierEtud(prec);
-                     System.out.println("vérifications terminés pour "+p.toString());
-                 }
-             } catch (JMSException ex) {
-                 Logger.getLogger(MiseajourPreconvScol.class.getName()).log(Level.SEVERE, null, ex);
-             }
-        }else{
-                   System.err.print("msg sco non valid");
-               }
+        if (message instanceof ObjectMessage) {
+            try {
+                ObjectMessage om = (ObjectMessage) message;
+                Object obj = om.getObject();
+                if (obj instanceof Preconvention) {
+                    Preconvention prec = (Preconvention) obj;
+                    System.out.println("Preconvention " + prec.getRefConv() + " déposée");
+                    
+                    //déclencher la vérifications : scolarité                      
+                    Preconvention p = vérifierEtud(prec);
+                    System.out.println("vérifications scolarité terminés pour " + p.getRefConv());
+                }
+            } catch (JMSException ex) {
+                Logger.getLogger(MiseajourPreconvScol.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.err.print("msg sco non valid");
+        }
     }
-    
-        public Preconvention vérifierEtud(Preconvention p){
-        Diplome diplomePrecon= p.getDiplome();
+
+    public Preconvention vérifierEtud(Preconvention p) {
+       /* Diplome diplomePrecon = p.getDiplome();
         Diplome diplomeReel = p.getEtudiant().getDipActuel();
         String cause = "";
-        Boolean verif = etdSingl.exists(p.getEtudiant().getNumeroEtudiant())&& diplomePrecon.getIntitule().equals(diplomeReel.getIntitule());
-        if(!verif ){
-        cause="L etudiant mentionne n existe pas, ou son diplome préparé n est pas valide";
-    }        
-        return precs.validerScolarite(p.getRefConv(), verif, cause);
+        Boolean verifEtud = etdSingl.exists(p.getEtudiant().getNumeroEtudiant());
+        Boolean verifDiplome =  diplomePrecon.getIntitule().equals(diplomeReel.getIntitule());
+        if (!verifDiplome && verifEtud) {
+            cause = "L etudiant mentionne n existe pas, ou son diplome préparé n est pas valide";
+        }
+        return precs.validerScolarite(p, verifDiplome && verifEtud, cause);
+        */
+        
+        return precs.validerScolarite(p, true, "");
     }
-    
+
 }

@@ -17,12 +17,13 @@ public class traitementMetier {
     
     private static String cause = "";
     
-    public PreconventionSingleton ps;
+    public static PreconventionSingleton ps;
     /*
     vérifie si la durée du stage ne dépasse pas 6 mois et que le stage ne se déroule pas sur 2 annes uiv.
     */
         public static Boolean periodeStageOK(Preconvention p){
         long duree = p.getDuréeStage();
+        System.out.println(duree);
         int an1 = p.getDebut().getYear();        
         int an2 = p.getFin().getYear();
         if(! (duree < 7  && an1==an2)){
@@ -41,10 +42,13 @@ public class traitementMetier {
        return p.getDuréeStage() > 2 && p.getGratification()>0 ;
     }
     
-    public Preconvention validationJuridique(Preconvention p){
-      Boolean validEntreprise = verificationsEntreprise.getSIREN(p.getEntreprise().toString()).equals("");
+    public static Preconvention validationJuridique(Preconvention p){
+      Boolean validEntreprise = !verificationsEntreprise.getSIREN(p.getEntreprise().toString()).equals("");
+      System.out.println(validEntreprise);
       Boolean finV = periodeStageOK(p) && gratificationOK(p)&& validEntreprise;
-      return ps.validerJuridique(p.getRefConv(), finV, traitementMetier.cause);      
+      //a garder celui en commentaire
+      //return ps.validerJuridique(p.getRefConv(), finV, traitementMetier.cause);
+      return ps.validerJuridique(p.getRefConv(), validEntreprise, traitementMetier.cause);      
     }
 }
 

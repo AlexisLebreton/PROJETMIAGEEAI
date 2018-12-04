@@ -37,6 +37,7 @@ public class GestionMessagesQueue implements MessageListener {
     
     @Override
     public void onMessage(Message message) {
+        System.out.println("msg in queue: to handle by gestion preconv");
         if (message instanceof ObjectMessage) {
             ObjectMessage text = (ObjectMessage) message;
             Preconvention preconvRec;

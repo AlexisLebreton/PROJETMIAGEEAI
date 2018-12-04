@@ -69,13 +69,13 @@ public class PreconventionSingleton {
         return prec;
     }
 
-    public Preconvention validerScolarite(int refPreConv, boolean v,String cause) {
-        System.out.println(refPreConv);
-        System.out.println("v");
-        Preconvention prec = preconvs.get(refPreConv);
-        System.out.println(prec.getRepSco());
+    public Preconvention validerScolarite(Preconvention prec, boolean v,String cause) {
+      
+        System.out.println("verif cote singleton");
+        System.out.println(prec.getRepSco().getCauseRep());
         prec.getRepSco().setValRep(v);
         prec.getRepSco().setCauseRep(cause);
+        System.out.println(prec.getRefConv()+"validé scolar: to send in queue");
         context.createProducer().send(queue, prec);
         return prec;
     }

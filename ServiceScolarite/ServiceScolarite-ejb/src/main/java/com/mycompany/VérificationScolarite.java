@@ -29,6 +29,6 @@ public class VérificationScolarite {
         if(!verif ){
         cause="L etudiant mentionne n existe pas, ou son diplome préparé n est pas valide";
     }        
-        return ps.validerScolarite(p.getRefConv(), verif, cause);
+        return ps.validerScolarite(p, verif, cause);
     }
 }

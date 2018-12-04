@@ -63,7 +63,7 @@ public class MiseajourPreconvEns implements MessageListener {
     
         public Preconvention vérifier(Preconvention p){
        System.out.println("Voici les détails de la pre convention \n \t Nom prenom étudiant:"+p.getEtudiant().getPrenom()+" "+p.getEtudiant().getNom()+
-        "\n\t diplome préparé: "+p.getDiplome()+"\n\t sujet "+p.getResume()
+        "\n\t diplome préparé: "+p.getDiplome().getIntitule()+"\n\t sujet "+p.getResume()
         ); 
         
         System.out.println("validez-vous ce sujet? O/N");

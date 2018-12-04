@@ -49,11 +49,11 @@ public class MiseajourPreconvJuridique implements MessageListener {
                  Object obj = om.getObject();
                  if (obj instanceof Preconvention) {
                      Preconvention prec = (Preconvention) obj;
-                     System.out.println("Preconvention " + prec.getRefConv() + " tdéposée");
+                     System.out.println("Preconvention " + prec.getRefConv() + " déposée");
                      
                      //déclencher lA vérification
-                     Preconvention p = juridique.validationJuridique(prec);
-                     System.out.println("vérifications terminés pour "+p.toString());
+                    // Preconvention p = juridique.validationJuridique(prec);
+                     System.out.println("vérifications terminés pour "+prec.toString());
                  }
              } catch (JMSException ex) {
                  Logger.getLogger(MiseajourPreconvJuridique.class.getName()).log(Level.SEVERE, null, ex);
