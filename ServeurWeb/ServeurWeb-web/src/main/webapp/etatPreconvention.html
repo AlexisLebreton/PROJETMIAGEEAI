@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    
+    <head>
+        <title>Etat preconvention</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Gestion preconv app</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="/ServeurWeb-web/ajouterPreconvention.html">Ajouter preconvention</a></li>
+                    <li class="active"><a href="/ServeurWeb-web/etatPreconvention.html">Voir etat preconv</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+            
+            <h2>Saisir preconvention</h2>
+            
+            <form id="formulaire" action="">
+
+                <h3>Numéro de préconvention</h3>
+                <div class="form-group">
+                    <label for="numConv">Numéro de preconvention :</label>
+                    <input type="text" class="form-control" id="numConv" placeholder="Entrer un numéro" name="numConv">
+                
+
+                <button type="button" class="btn btn-default" id="creer" name="creer">Creer</button>
+                
+            </form>
+            
+        </div>
+
+    </body>
+
+    <script>
+        $(document).ready(function(){
+            // click on button submit
+            $("#creer").on('click', function(){
+                // send ajax
+                $.ajax({
+                    url: 'http://localhost:8080/ServeurWeb-web/webresources/preconvention/'+$('#numConv').val(), // url where to submit the request
+                    type : "GET", // type of action POST || GET
+                    dataType : 'json', // data type
+                    success : function(result) {
+                        // you can see the result from the console
+                        // tab of the developer tools
+                        console.log(result);
+                    },
+                    error: function(xhr, resp, text) {
+                        console.log(xhr, resp, text);
+                    }
+                })
+            });
+        });
+    
+    </script>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    
+    <head>
+        <title>Ajouter preconvention</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Gestion preconv app</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/ServeurWeb-web/ajouterPreconvention.html">Ajouter preconvention</a></li>
+                    <li><a href="/ServeurWeb-web/etatPreconvention.html">Voir etat preconv</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+            
+            <h2>Saisir preconvention</h2>
+            
+            <form id="formulaire" action="">
+
+                <h3>Etudiant</h3>
+                <div class="form-group">
+                    <label for="nom">Nom :</label>
+                    <input type="text" class="form-control" id="nom" placeholder="Entrer un nom" name="nom">
+                </div>
+                <div class="form-group">
+                    <label for="prenom">Prénom :</label>
+                    <input type="text" class="form-control" id="prenom" placeholder="Entrer un prénom" name="prenom">
+                </div>
+                <div class="form-group">
+                    <label for="numeroEtudiant">Numéro étudiant :</label>
+                    <input type="text" class="form-control" id="numeroEtudiant" placeholder="Entrer un numéro étudiant" name="numeroEtudiant">
+                </div>
+
+                <h3>Diplôme préparé</h3>
+                <div class="form-group">
+                    <label for="niveau">Selectionner un niveau :</label>
+                    <select class="form-control" id="niveau" name="niveau">
+                        <option value="L1">L1</option>
+                        <option value="L2">L2</option>
+                        <option value="L3">L3</option>
+                        <option value="M1">M1</option>
+                        <option value="M2">M2</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="intitule">Diplome preparer :</label>
+                    <input type="text" class="form-control" id="intitule" placeholder="Entrer un diplome" name="intitule">
+                </div>
+
+                <h3>Responsabilité civile</h3>
+                <div class="form-group">
+                    <label for="compagnie">Compagnie assurance :</label>
+                    <input type="text" class="form-control" id="compagnie" placeholder="Entrer un assureur" name="compagnie">
+                </div>
+                <div class="form-group">
+                    <label for="numeroContrat">Numéro de contrat :</label>
+                    <input type="text" class="form-control" id="numeroContrat" placeholder="Entrer un numéro de contrat" name="numeroContrat">
+                </div>
+
+                <h3>Entreprise/Institution</h3>
+                <div class="form-group">
+                    <label for="denomination">Nom :</label>
+                    <input type="text" class="form-control" id="denomination" placeholder="Entrer un assureur" name="denomination">
+                </div>
+                <div class="form-group">
+                    <label for="siren">Numéro de siren :</label>
+                    <input type="text" class="form-control" id="siren" placeholder="Entrer un numéro de siren" name="siren">
+                </div>
+
+                <h3>Stage</h3>
+                <div class="form-group">
+                    <label for="debut">Date de début :</label>
+                    <input type="date" class="form-control" id="debut" name="debut">
+                </div>
+                <div class="form-group">
+                    <label for="fin">Date de fin :</label>
+                    <input type="date" class="form-control" id="fin" placeholder="Entrer un numéro de siren" name="fin">
+                </div>
+                <div class="form-group">
+                    <label for="gratification">Gratification :</label>
+                    <input type="number" class="form-control" id="gratification" placeholder="Entrer un montant de gratification mensuel (en euro)" name="gratification">
+                </div>
+                <div class="form-group">
+                    <label for="resume">Résumé sujet et activités:</label>
+                    <textarea class="form-control" rows="5" id="resume"></textarea>
+                </div>
+
+                <button type="button" class="btn btn-default" id="creer" name="creer">Creer</button>
+                
+                
+            </form>
+            
+            <div class="alert alert-success" role="alert" style="display:none" id="alertID">
+                Préconvention ajouté avec succes. NUMERO A CONSERVER : <span id="numPreconvSpan"></span>
+            </div>
+            
+        </div>
+
+    </body>
+
+    <script>
+        $(document).ready(function(){
+            // click on button submit
+            $("#creer").on('click', function(){
+                // send ajax
+                $.ajax({
+                    url: 'http://localhost:8080/ServeurWeb-web/webresources/preconventions', // url where to submit the request
+                    type : "PUT", // type of action POST || GET
+                    contentType: "application/json",
+                    dataType : 'json', // data type
+                    data : "{nom: '"+$("#nom").val()
+                            +"',prenom: '"+$("#prenom").val()
+                            +"',numeroEtudiant : '"+$("#numeroEtudiant").val()
+                            +"',niveau: '"+$("#niveau").val()
+                            +"',intitule: '"+$("#intitule").val()
+                            +"',compagnie: '"+$("#compagnie").val()
+                            +"',numeroContrat: '"+$("#numeroContrat").val()
+                            +"',denomination: '"+$("#denomination").val()
+                            +"',siren: '"+$("#siren").val()
+                            +"',debut: '"+$("#debut").val()
+                            +"',fin: '"+$("#fin").val()
+                            +"',gratification: '"+$("#gratification").val()
+                            +"',resume: '"+$("#resume").val()+"'}", // post data || get data
+                    success : function(result) {
+                        $("#alertID").css("display","");
+                        $("#numPreconvSpan").html(result);
+                    },
+                    error: function(xhr, resp, text) {
+                        console.log(xhr, resp, text);
+                    }
+                })
+            });
+        });
+    
+    </script>
+</html>

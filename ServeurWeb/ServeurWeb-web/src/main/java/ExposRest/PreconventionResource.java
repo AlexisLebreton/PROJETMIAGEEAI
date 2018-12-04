@@ -48,8 +48,7 @@ public class PreconventionResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson(@PathParam("refConv") int refConv) {
-        Gson gson = new Gson();
-        return gson.toJson(this.preconvSingleton.getPrevention(refConv));
+        return this.preconvSingleton.getPrevention(refConv).getEtatPreconv();
     }
 
     /**
