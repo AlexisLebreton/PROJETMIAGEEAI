@@ -156,11 +156,9 @@ public class Preconvention implements Serializable {
     }
 
     public long getDuréeStage() {
-        LocalDate d1 = LocalDate.parse((CharSequence) this.debut, DateTimeFormatter.ISO_LOCAL_DATE);
-        LocalDate d2 = LocalDate.parse((CharSequence) this.fin, DateTimeFormatter.ISO_LOCAL_DATE);
-        Duration diff = Duration.between(d2.atStartOfDay(), d1.atStartOfDay());
-        long diffDays = diff.toDays();
-        return diffDays / 30;
+        long difference = this.fin.getTime() - this.debut.getTime();
+	long daysBetween = (difference / (1000*60*60*24));
+        return daysBetween;
     }
     
     @Override
