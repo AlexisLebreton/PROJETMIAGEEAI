@@ -26,80 +26,64 @@ import com.mycompany.univshared.utilities.Preconvention;
 @Singleton
 @LocalBean
 public class PreconventionSingleton {
+
     @Resource(lookup = "PreconventionDeposee")
     private Topic topic;
-    
-    @Resource(lookup="GestionnairePreconventions")
+
+    @Resource(lookup = "GestionnairePreconventions")
     private Queue queue;
-    
+
     @Inject
     private JMSContext context;
-    
+
     private static PreconventionSingleton INSTANCE = null;
-    
+
     private HashMap<Integer, Preconvention> preconvs = new HashMap<>();
-    private Integer lastid=0;
-    
-    public static PreconventionSingleton getInstance()
-    {           
-        if (INSTANCE == null)
-        {   INSTANCE = new PreconventionSingleton(); 
+    private Integer lastid = 0;
+
+    public static PreconventionSingleton getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new PreconventionSingleton();
         }
         return INSTANCE;
     }
-    
-     public Preconvention ajouterPreConvention(String nom, String prenom, String numeroEtudiant, String niveau, String intitule, String compagnie, String numeroContrat, String denomination, String siren, Date debut, Date fin, int gratification, String resume) {      
+
+    public Preconvention ajouterPreConvention(String nom, String prenom, String numeroEtudiant, String niveau, String intitule, String compagnie, String numeroContrat, String denomination, String siren, Date debut, Date fin, int gratification, String resume) {
         Preconvention prec = new Preconvention(lastid, nom, prenom, numeroEtudiant, niveau, intitule, compagnie, numeroContrat, denomination, siren, debut, fin, gratification, resume);
         this.preconvs.put(lastid, prec);
         deposerPreconv(lastid);
-        this.lastid ++;        
+        this.lastid++;
         return prec;
     }
-     
-    public void ajouterPreConvention(Preconvention prec) {      
+
+    public void ajouterPreConvention(Preconvention prec) {
         this.preconvs.put(lastid, prec);
-        this.lastid ++;   
+        this.lastid++;
     }
 
-    public Preconvention validerJuridique(int refPreConv, boolean v,String cause) {
-        Preconvention prec = preconvs.get(refPreConv);
-        prec.getRepJur().setValRep(v);
-        prec.getRepJur().setCauseRep(cause);      
-        context.createProducer().send(queue, prec);
-        return prec;
-    }
+    public Preconvention validerScolarite(Preconvention prec, boolean v, String cause) {
 
-    public Preconvention validerScolarite(Preconvention prec, boolean v,String cause) {
-      
-        System.out.println("verif cote singleton");
+        System.out.println("verif cote singleton scol");
         System.out.println(prec.getRepSco().getCauseRep());
         prec.getRepSco().setValRep(v);
         prec.getRepSco().setCauseRep(cause);
-        System.out.println(prec.getRefConv()+"validé scolar: to send in queue");
+        System.out.println(prec.getRefConv() + "validé scolar: to send in queue");
         context.createProducer().send(queue, prec);
         return prec;
     }
 
-    public Preconvention validerEnseignement(int refPreconv,boolean b, String cause) {
-        Preconvention prec = preconvs.get(refPreconv);
-        prec.getRepEn().setValRep(b);
-        prec.getRepEn().setCauseRep(cause);
-        context.createProducer().send(queue, prec);
-        return prec;
-    }
-    
     public Preconvention getPrevention(int refPreconv) {
         return this.preconvs.get(refPreconv);
     }
 
     public Etudiant getEtudiant(int refPreconv) {
-       return this.preconvs.get(refPreconv).getEtudiant();
+        return this.preconvs.get(refPreconv).getEtudiant();
     }
 
-    public HashMap<Integer,Preconvention> getAll(){
+    public HashMap<Integer, Preconvention> getAll() {
         return this.preconvs;
     }
-    
+
     //sert à déposer une preconvention sur le topic dédié au dépot de demande préconventions
     public Preconvention deposerPreconv(int refPrec) {
         Preconvention prec = preconvs.get(refPrec);

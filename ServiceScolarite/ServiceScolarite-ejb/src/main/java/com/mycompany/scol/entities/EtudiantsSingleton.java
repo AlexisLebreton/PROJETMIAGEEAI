@@ -5,6 +5,7 @@
  */
 package com.mycompany.scol.entities;
 
+import com.mycompany.univshared.utilities.Diplome;
 import java.util.HashMap;
 import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
@@ -19,9 +20,21 @@ import com.mycompany.univshared.utilities.Etudiant;
 @LocalBean
 public class EtudiantsSingleton {
     
-    private HashMap<String, Etudiant> etds = new HashMap<>();;
+    private HashMap<String, Etudiant> etds;
+    public Etudiant e1 = new Etudiant("CHAOUCH","Maha","123");
+    public  Etudiant e2 = new Etudiant("LEBRETON","Alexis","124");
     
-         public Etudiant ajouterEtudiant(String nom,String prenom,String n) {
+
+    public EtudiantsSingleton() {
+        this.etds = new HashMap<>();
+        e1.setDiplome(new Diplome("M2","Miage M2 itn"));
+        e2.setDiplome(new Diplome("M2","Miage M2 itn"));
+        etds.put("123", e1);
+        etds.put("124", e2);
+    }
+    
+    
+    public Etudiant ajouterEtudiant(String nom,String prenom,String n) {
         Etudiant et= new Etudiant(nom,prenom,n);
         etds.put(n,et);
         return et;

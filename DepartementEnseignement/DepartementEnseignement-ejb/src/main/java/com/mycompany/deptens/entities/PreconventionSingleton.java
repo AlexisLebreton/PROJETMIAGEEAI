@@ -26,10 +26,10 @@ import com.mycompany.univshared.utilities.Preconvention;
 @Singleton
 @LocalBean
 public class PreconventionSingleton {
-    @Resource(lookup = "jms/PreconventionDeposee")
+    @Resource(lookup = "PreconventionDeposee")
     private Topic topic;
     
-    @Resource(lookup="jms/GestionnairePreconventions")
+    @Resource(lookup="GestionnairePreconventions")
     private Queue queue;
     
     @Inject
@@ -59,22 +59,6 @@ public class PreconventionSingleton {
     public void ajouterPreConvention(Preconvention prec) {      
         this.preconvs.put(lastid, prec);
         this.lastid ++;   
-    }
-
-    public Preconvention validerJuridique(int refPreConv, boolean v,String cause) {
-        Preconvention prec = preconvs.get(refPreConv);
-        prec.getRepJur().setValRep(v);
-        prec.getRepJur().setCauseRep(cause);      
-        context.createProducer().send(queue, prec);
-        return prec;
-    }
-
-    public Preconvention validerScolarite(int refPreConv, boolean v,String cause) {
-        Preconvention prec = preconvs.get(refPreConv);
-        prec.getRepSco().setValRep(v);
-        prec.getRepSco().setCauseRep(cause);
-        context.createProducer().send(queue, prec);
-        return prec;
     }
 
     public Preconvention validerEnseignement(int refPreconv,boolean b, String cause) {

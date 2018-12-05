@@ -54,4 +54,8 @@ public class Etudiant implements Serializable{
         this.numeroEtudiant = numeroEtudiant;
     }
     
+    public void setDiplome(Diplome d){
+        this.diplomeActuel = d;
+    }
+    
 }

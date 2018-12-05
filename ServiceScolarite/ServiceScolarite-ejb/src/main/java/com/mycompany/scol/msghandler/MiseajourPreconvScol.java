@@ -66,7 +66,7 @@ public class MiseajourPreconvScol implements MessageListener {
     }
 
     public Preconvention vérifierEtud(Preconvention p) {
-       /* Diplome diplomePrecon = p.getDiplome();
+        Diplome diplomePrecon = p.getDiplome();
         Diplome diplomeReel = p.getEtudiant().getDipActuel();
         String cause = "";
         Boolean verifEtud = etdSingl.exists(p.getEtudiant().getNumeroEtudiant());
@@ -75,9 +75,9 @@ public class MiseajourPreconvScol implements MessageListener {
             cause = "L etudiant mentionne n existe pas, ou son diplome préparé n est pas valide";
         }
         return precs.validerScolarite(p, verifDiplome && verifEtud, cause);
-        */
         
-        return precs.validerScolarite(p, true, "");
+        
+       // return precs.validerScolarite(p, true, "");
     }
 
 }
