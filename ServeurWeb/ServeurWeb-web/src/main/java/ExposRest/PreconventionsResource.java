@@ -62,7 +62,7 @@ public class PreconventionsResource {
         Gson g = new Gson(); 
         PreconventionEclatee p = g.fromJson(content, PreconventionEclatee.class);
         int numPreconv = preconvSingleton.ajouterPreConvention(p.getNom(), p.getPrenom(), p.getNumeroEtudiant(),p.getNiveau(),p.getIntitule(),p.getCompagnie(),p.getNumeroContrat(),p.getDenomination(), p.getSiren(),p.getDebut(), p.getFin(), (int) p.getGratification(), p.getResume());
-        return "{preconvId:"+numPreconv+"}";
+        return numPreconv+"";
     }
     
     private PreconventionSingleton lookupPreconventionSingletonBean() {

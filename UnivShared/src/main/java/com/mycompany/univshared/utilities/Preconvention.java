@@ -46,6 +46,18 @@ public class Preconvention implements Serializable {
         this.RepEn = new ReponseTraitPrec();
         this.RepSco = new ReponseTraitPrec();
     }
+    
+    public String getEtatPreconv(){
+        if (this.RepJur.getValRep() == null && this.RepEn.getValRep() == null && this.RepSco.getValRep() == null){
+            return "En cours de traitement";
+        }else{
+            if (this.RepJur.getValRep() && this.RepEn.getValRep()&& this.RepSco.getValRep()){
+                return "Preconvention validé";
+            }else{
+                return "Preconvention refusé. Cause : "+this.RepJur.getCauseRep()+" ; "+this.RepEn.getCauseRep()+" ; "+this.RepSco.getCauseRep();
+            }
+        }
+    }
 
     public int getRefConv() {
         return refConv;
