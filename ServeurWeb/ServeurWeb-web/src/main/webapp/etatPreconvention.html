@@ -41,9 +41,13 @@ and open the template in the editor.
                     <input type="text" class="form-control" id="numConv" placeholder="Entrer un numéro" name="numConv">
                 
 
-                <button type="button" class="btn btn-default" id="creer" name="creer">Creer</button>
+                <button type="button" class="btn btn-default" id="valider" name="valider">Valider</button>
                 
             </form>
+            
+            <div class="alert alert-success" role="alert" style="display:none" id="alertID">
+                Etat : <span id="etatPreconvSpan"></span>
+            </div>
             
         </div>
 
@@ -52,16 +56,15 @@ and open the template in the editor.
     <script>
         $(document).ready(function(){
             // click on button submit
-            $("#creer").on('click', function(){
+            $("#valider").on('click', function(){
                 // send ajax
                 $.ajax({
                     url: 'http://localhost:8080/ServeurWeb-web/webresources/preconvention/'+$('#numConv').val(), // url where to submit the request
                     type : "GET", // type of action POST || GET
                     dataType : 'json', // data type
                     success : function(result) {
-                        // you can see the result from the console
-                        // tab of the developer tools
-                        console.log(result);
+                        $("#alertID").css("display","");
+                        $("#etatPreconvSpan").html(result);
                     },
                     error: function(xhr, resp, text) {
                         console.log(xhr, resp, text);
