@@ -48,19 +48,20 @@ public class GestionMessagesQueue implements MessageListener {
                 Preconvention preconvEnr = preconvSing.getPrevention(preconvRec.getRefConv());
                 
                 if (preconvEnr == null){
-                    System.out.println("null");
                     // si preconv recu est nouvelle, ajout à hashmap de gestion preconv
                     preconvSing.ajouterPreConvention(preconvRec);
                     preconvEnr = preconvRec;
                 }else{
-                    System.out.println("pas null");
                     // sinon maj traitement de la preconv deja presente
                     ReponseTraitPrec repJurRec = preconvRec.getRepJur();
                     ReponseTraitPrec repEnRec = preconvRec.getRepEn();
                     ReponseTraitPrec repScoRec = preconvRec.getRepSco();
                     if (repJurRec != null){ preconvEnr.setRepJur(repJurRec); }
+                    System.out.println("repJurRep est "+repJurRec == null);
                     if (repEnRec != null){ preconvEnr.setRepEn(repJurRec); }
+                    System.out.println("repEnRec est "+repEnRec == null);
                     if (repScoRec != null){ preconvEnr.setRepSco(repJurRec); }
+                    System.out.println("repScoRec est "+repScoRec == null);
                     preconvSing.majPreConvention(preconvEnr);
                 }
                 

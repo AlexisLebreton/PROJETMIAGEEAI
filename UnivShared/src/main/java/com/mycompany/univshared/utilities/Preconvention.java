@@ -34,8 +34,9 @@ public class Preconvention implements Serializable {
 
     public Preconvention(int refConv, String nom, String prenom, String numeroEtudiant, String niveau, String intitule, String compagnie, String numeroContrat, String denomination, String siren, Date debut, Date fin, long gratification, String resume) {
         this.refConv = refConv;
-        this.etudiant = new Etudiant(nom,prenom,numeroEtudiant);
         this.diplome = new Diplome(niveau,intitule);
+        this.etudiant = new Etudiant(nom,prenom,numeroEtudiant,this.diplome);
+        System.out.println("sur sur que l etud a un diplom"+this.etudiant.getDipActuel().getIntitule());
         this.responsabiliteCivile = new ResponsabiliteCivile(compagnie, numeroContrat);
         this.entreprise = new Entreprise(denomination,siren);
         this.debut = debut;

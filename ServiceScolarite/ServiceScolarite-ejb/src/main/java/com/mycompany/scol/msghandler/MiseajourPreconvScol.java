@@ -55,7 +55,7 @@ public class MiseajourPreconvScol implements MessageListener {
                     
                     //déclencher la vérifications : scolarité                      
                     Preconvention p = vérifierEtud(prec);
-                    System.out.println("vérifications scolarité terminés pour " + p.getRefConv());
+                    System.out.println("vérifications scolarité terminés pour " + p.getRefConv()); 
                 }
             } catch (JMSException ex) {
                 Logger.getLogger(MiseajourPreconvScol.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,14 +70,12 @@ public class MiseajourPreconvScol implements MessageListener {
         Diplome diplomeReel = p.getEtudiant().getDipActuel();
         String cause = "";
         Boolean verifEtud = etdSingl.exists(p.getEtudiant().getNumeroEtudiant());
-        Boolean verifDiplome =  diplomePrecon.getIntitule().equals(diplomeReel.getIntitule());
+       Boolean verifDiplome =  diplomePrecon.getIntitule().equals(diplomeReel.getIntitule());
         if (!verifDiplome && verifEtud) {
             cause = "L etudiant mentionne n existe pas, ou son diplome préparé n est pas valide";
         }
-        return precs.validerScolarite(p, verifDiplome && verifEtud, cause);
-        
-        
-       // return precs.validerScolarite(p, true, "");
+        return precs.validerScolarite(p, verifDiplome && verifEtud, cause);     
+
     }
 
 }

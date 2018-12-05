@@ -18,7 +18,6 @@ import javax.jms.Queue;
 import javax.jms.Topic;
 import com.mycompany.univshared.utilities.Etudiant;
 import com.mycompany.univshared.utilities.Preconvention;
-import javax.jms.JMSProducer;
 
 /**
  *

@@ -25,7 +25,12 @@ public class Etudiant implements Serializable{
         this.prenom = prenom;
         this.numeroEtudiant = numeroEtudiant;
     }
-
+    public Etudiant(String nom, String prenom, String numeroEtudiant, Diplome d) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.numeroEtudiant = numeroEtudiant;
+        this.diplomeActuel=d;
+    }
     public Diplome getDipActuel() {
         return diplomeActuel;
     }
