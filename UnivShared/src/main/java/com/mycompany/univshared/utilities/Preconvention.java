@@ -156,7 +156,7 @@ public class Preconvention implements Serializable {
         this.RepSco = RepSco;
     }
 
-    public long getDuréeStage() {
+    public long getDureeStage() {
         long difference = this.fin.getTime() - this.debut.getTime();
 	long daysBetween = (difference / (1000*60*60*24));
         return daysBetween;

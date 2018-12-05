@@ -29,7 +29,7 @@ public class traitementMetier {
     vérifie si la durée du stage ne dépasse pas 6 mois et que le stage ne se déroule pas sur 2 annes uiv.
     */
         public  Boolean periodeStageOK(Preconvention p){
-        long duree = p.getDuréeStage();
+        long duree = p.getDureeStage();
         System.out.println(duree);
         int an1 = p.getDebut().getYear();        
         int an2 = p.getFin().getYear();
@@ -45,7 +45,7 @@ public class traitementMetier {
     public  Boolean gratificationOK(Preconvention p){
         Boolean conforme = true;
         
-        if(p.getDuréeStage() > 2 ){
+        if(p.getDureeStage() > 2 ){
             if(p.getGratification()==0){
             traitementMetier.cause += " gratification non conforme";
             conforme=false;
