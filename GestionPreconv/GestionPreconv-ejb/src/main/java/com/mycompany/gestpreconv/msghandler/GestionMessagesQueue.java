@@ -8,6 +8,8 @@ package com.mycompany.gestpreconv.msghandler;
 import com.mycompany.univshared.utilities.Preconvention;
 import com.mycompany.univshared.utilities.ReponseTraitPrec;
 import com.mycompany.gestpreconv.entities.PreconventionSingleton;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
@@ -32,57 +34,64 @@ public class GestionMessagesQueue implements MessageListener {
     @EJB
     PreconventionSingleton preconvSing;
 
+    // sinon maj traitement de la preconv deja presente
+    ReponseTraitPrec repJurRec;
+    ReponseTraitPrec repEnRec;
+    ReponseTraitPrec repScoRec;
+    HashMap <Integer,ArrayList<Boolean>> validations=new HashMap<>();
+    ArrayList arrayBooleans = new ArrayList<Boolean>();
+    
     public GestionMessagesQueue() {
     }
 
     @Override
     public void onMessage(Message message) {
         System.out.println("msg in queue: to handle by gestion preconv");
-        System.out.println("MSG!!!!!!"+message.getClass());
         if (message instanceof ObjectMessage) {
             try {
                 ObjectMessage om = (ObjectMessage) message;
-                System.out.println("om is "+om.toString());
+                String type = om.getJMSType();
+                System.out.println("TYPE DU MSG RECU " + type);
                 Object obj = om.getObject();
-                System.out.println("object msg "+obj.getClass());
+                System.out.println("object msg " + obj.getClass());
                 if (obj instanceof Preconvention) {
                     Preconvention preconvRec = (Preconvention) obj;
                     System.out.println("Received: " + preconvRec.toString());
-
-                    Preconvention preconvEnr = preconvSing.getPrevention(preconvRec.getRefConv());
-
-                    if (preconvEnr == null) {
-                        // si preconv recu est nouvelle, ajout à hashmap de gestion preconv
-                        preconvSing.ajouterPreConvention(preconvRec);
-                        preconvEnr = preconvRec;
-                    } else {
-                        // sinon maj traitement de la preconv deja presente
-                        ReponseTraitPrec repJurRec = preconvRec.getRepJur();
-                        ReponseTraitPrec repEnRec = preconvRec.getRepEn();
-                        ReponseTraitPrec repScoRec = preconvRec.getRepSco();
-                        if (repJurRec != null) {
-                            preconvEnr.setRepJur(repJurRec);
-                        }
-                        System.out.println("repJurRep est " + repJurRec == null);
-                        if (repEnRec != null) {
-                            preconvEnr.setRepEn(repJurRec);
-                        }
-                        System.out.println("repEnRec est " + repEnRec == null);
-                        if (repScoRec != null) {
-                            preconvEnr.setRepSco(repJurRec);
-                        }
-                        System.out.println("repScoRec est " + repScoRec == null);
-                        preconvSing.majPreConvention(preconvEnr);
-                    }
-
+                    switch(type){
+                        case "Juridique":
+                            if(!validations.containsKey(preconvRec.getRefConv())){
+                                arrayBooleans.add(preconvRec.getRepJur().getValRep());
+                                validations.put(preconvRec.getRefConv(),arrayBooleans);
+                            }else{
+                                validations.get(preconvRec.getRefConv()).add(preconvRec.getRepJur().getValRep());
+                            }
+                            break;
+                            
+                        case"Enseignement":
+                             if(!validations.containsKey(preconvRec.getRefConv())){
+                                arrayBooleans.add(preconvRec.getRepEn().getValRep());
+                                validations.put(preconvRec.getRefConv(),arrayBooleans);
+                            }else{
+                                validations.get(preconvRec.getRefConv()).add(preconvRec.getRepEn().getValRep());
+                            }
+                             break;
+                    
+                        case"Scolarite":
+                             if(!validations.containsKey(preconvRec.getRefConv())){
+                                arrayBooleans.add(preconvRec.getRepSco().getValRep());
+                                validations.put(preconvRec.getRefConv(),arrayBooleans);
+                            }else{
+                                validations.get(preconvRec.getRefConv()).add(preconvRec.getRepSco().getValRep());
+                            }
+                             break;                            
+                }
                     //envoie vers 
-                    if (preconvEnr.isAllRep()) {
-                        preconvSing.depotPreconvTraiteeTopic(preconvEnr.getRefConv());
+                    if (preconvRec.isAllRep()) {
+                        preconvSing.depotPreconvTraiteeTopic(preconvRec.getRefConv());
                     }
                 }
             } catch (JMSException ex) {
                 Logger.getLogger(GestionMessagesQueue.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("ERROR!!!!!!!!!!");
             }
         }
     }

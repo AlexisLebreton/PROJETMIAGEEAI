@@ -18,6 +18,9 @@ import javax.jms.Queue;
 import javax.jms.Topic;
 import com.mycompany.univshared.utilities.Etudiant;
 import com.mycompany.univshared.utilities.Preconvention;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.jms.JMSException;
 
 /**
  *
@@ -48,7 +51,14 @@ public class PreconventionSingleton {
         System.out.println("preparing to send to queue after update juridique");
         prec.getRepJur().setValRep(v);
         prec.getRepJur().setCauseRep(cause);
-        context.createProducer().send(queue, prec);
+        ObjectMessage obm = context.createObjectMessage();
+        try {
+            obm.setJMSType("Juridique");
+            obm.setObject(prec);
+        } catch (JMSException ex) {
+            Logger.getLogger(PreconventionSingleton.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        context.createProducer().send(queue, obm);
         return prec;
     }
 

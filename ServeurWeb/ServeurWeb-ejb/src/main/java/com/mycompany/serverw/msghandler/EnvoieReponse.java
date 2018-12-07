@@ -42,7 +42,7 @@ public class EnvoieReponse implements MessageListener {
     @Override
     public void onMessage(Message message) {
         if (message instanceof ObjectMessage) {
-            ObjectMessage text = (ObjectMessage) message;
+          /*  ObjectMessage text = (ObjectMessage) message;
             Preconvention preconvTraite;
             try {
                 preconvTraite = (Preconvention) ((ObjectMessage) message).getObject();
@@ -50,7 +50,7 @@ public class EnvoieReponse implements MessageListener {
                 preconvSing.majPreConvention(preconvTraite);
             } catch (JMSException ex) {
                 //Logger.getLogger(GestionMessagesTopic.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
         }
     }
     

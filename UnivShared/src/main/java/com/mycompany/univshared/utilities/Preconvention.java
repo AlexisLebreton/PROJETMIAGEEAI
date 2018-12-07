@@ -36,7 +36,6 @@ public class Preconvention implements Serializable {
         this.refConv = refConv;
         this.diplome = new Diplome(niveau,intitule);
         this.etudiant = new Etudiant(nom,prenom,numeroEtudiant,this.diplome);
-        System.out.println("sur sur que l etud a un diplom"+this.etudiant.getDipActuel().getIntitule());
         this.responsabiliteCivile = new ResponsabiliteCivile(compagnie, numeroContrat);
         this.entreprise = new Entreprise(denomination,siren);
         this.debut = debut;
@@ -170,7 +169,7 @@ public class Preconvention implements Serializable {
     }
     
     public boolean isAllRep(){
-        if (this.RepJur != null && this.RepEn != null && this.RepSco != null){
+        if (this.RepJur.getValRep() != null && this.RepEn.getValRep() != null && this.RepSco.getValRep() != null){
             return true;
         }else{
             return false;

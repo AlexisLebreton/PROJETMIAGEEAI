@@ -68,11 +68,11 @@ public class MiseajourPreconvJuridique implements MessageListener {
 
     public Preconvention validationJuridique(Preconvention p) {
         Boolean validEntreprise = !verificationsEntreprise.getSIREN(p.getEntreprise().getSiren()).equals("");
-        Boolean interm = juridique.periodeStageOK(p);
-        System.out.println(interm);
-        // Boolean finV = juridique.periodeStageOK(p) && juridique.gratificationOK(p)&& validEntreprise;
+        //Boolean interm = juridique.gratificationOK(p);
+        //System.out.println(interm);
+         Boolean finV = juridique.periodeStageOK(p) && juridique.gratificationOK(p)&& validEntreprise;
         //a garder celui en commentaire
-        //return ps.validerJuridique(p.getRefConv(), finV, traitementMetier.cause);
-        return precs.validerJuridique(p, true, "");
+        return precs.validerJuridique(p, finV, p.getRepJur().getCauseRep());
+       // return precs.validerJuridique(p, true, "");
     }
 }
