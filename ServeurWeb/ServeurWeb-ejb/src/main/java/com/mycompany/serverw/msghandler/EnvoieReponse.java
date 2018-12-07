@@ -22,12 +22,9 @@ import javax.jms.ObjectMessage;
  * @author maha-
  */
 @MessageDriven(activationConfig = {
-    @ActivationConfigProperty(propertyName = "clientId", propertyValue = "PreconventionTraitee")
-    ,
-        @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "PreconventionTraitee")
-    
-    ,
-        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "PreconventionTraitee")
+    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "PreconventionTraitee"),
+
+        @ActivationConfigProperty(propertyName = "subscriptionName", propertyValue = "PreconventionTraiteeWS")
     ,
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")
 })
@@ -41,17 +38,26 @@ public class EnvoieReponse implements MessageListener {
     
     @Override
     public void onMessage(Message message) {
-        if (message instanceof ObjectMessage) {
-          /*  ObjectMessage text = (ObjectMessage) message;
-            Preconvention preconvTraite;
+System.out.println("ICIIII");
+     /*   if (message instanceof ObjectMessage) {
             try {
-                preconvTraite = (Preconvention) ((ObjectMessage) message).getObject();
-                System.out.println("Server Web Received: " + preconvTraite.toString());
-                preconvSing.majPreConvention(preconvTraite);
+                ObjectMessage om = (ObjectMessage) message;
+                Object obj = om.getObject();
+                if (obj instanceof Preconvention) {
+                    Preconvention prec = (Preconvention) obj;
+                    System.out.println("Preconvention " + prec.getRefConv() + " déposée");
+
+                    //déclencher la réponse finale
+                     preconvSing.majPreConvention(prec);
+                    System.out.println("envoi finale vers le serveur Web" + prec.toString());
+                }
             } catch (JMSException ex) {
-                //Logger.getLogger(GestionMessagesTopic.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
-        }
+                Logger.getLogger(EnvoieReponse.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("non objectMsg sent");
+        } */
+        
     }
     
 }

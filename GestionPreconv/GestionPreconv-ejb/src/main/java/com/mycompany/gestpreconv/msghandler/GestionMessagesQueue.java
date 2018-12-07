@@ -87,6 +87,7 @@ public class GestionMessagesQueue implements MessageListener {
                 }
                     //envoie vers 
                     if (preconvRec.isAllRep()) {
+                        System.out.println("SENDING TO TOPIC FINAAAAL");
                         preconvSing.depotPreconvTraiteeTopic(preconvRec.getRefConv());
                     }
                 }
