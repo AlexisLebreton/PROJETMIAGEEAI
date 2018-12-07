@@ -24,7 +24,6 @@ public class ReponseTraitPrec implements Serializable{
 
     public ReponseTraitPrec() {
         this.causeRep="";
-        this.valRep=false;
     }
 
  

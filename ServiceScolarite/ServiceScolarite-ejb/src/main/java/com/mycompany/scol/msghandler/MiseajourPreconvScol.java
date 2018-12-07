@@ -74,7 +74,7 @@ public class MiseajourPreconvScol implements MessageListener {
         if (!verifDiplome && verifEtud) {
             cause = "L etudiant mentionne n existe pas, ou son diplome préparé n est pas valide";
         }
-        return precs.validerScolarite(p, verifDiplome && verifEtud, cause);     
+        return precs.validerScolarite(p, verifDiplome && verifEtud, cause);           
 
     }
 

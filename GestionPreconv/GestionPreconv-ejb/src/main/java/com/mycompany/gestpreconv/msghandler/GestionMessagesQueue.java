@@ -34,12 +34,7 @@ public class GestionMessagesQueue implements MessageListener {
     @EJB
     PreconventionSingleton preconvSing;
 
-    // sinon maj traitement de la preconv deja presente
-    ReponseTraitPrec repJurRec;
-    ReponseTraitPrec repEnRec;
-    ReponseTraitPrec repScoRec;
-    HashMap <Integer,ArrayList<Boolean>> validations=new HashMap<>();
-    ArrayList arrayBooleans = new ArrayList<Boolean>();
+
     
     public GestionMessagesQueue() {
     }
@@ -57,36 +52,39 @@ public class GestionMessagesQueue implements MessageListener {
                 if (obj instanceof Preconvention) {
                     Preconvention preconvRec = (Preconvention) obj;
                     System.out.println("Received: " + preconvRec.toString());
+                    
                     switch(type){
                         case "Juridique":
-                            if(!validations.containsKey(preconvRec.getRefConv())){
-                                arrayBooleans.add(preconvRec.getRepJur().getValRep());
-                                validations.put(preconvRec.getRefConv(),arrayBooleans);
+                            if(!preconvSing.getAll().containsKey(preconvRec.getRefConv())){
+                                preconvSing.ajouterPreConvention(preconvRec);
+                                
+                            System.out.println("enter juri");
                             }else{
-                                validations.get(preconvRec.getRefConv()).add(preconvRec.getRepJur().getValRep());
+                                 preconvSing.getPrevention(preconvRec.getRefConv()).setRepJur(preconvRec.getRepJur());
                             }
                             break;
                             
                         case"Enseignement":
-                             if(!validations.containsKey(preconvRec.getRefConv())){
-                                arrayBooleans.add(preconvRec.getRepEn().getValRep());
-                                validations.put(preconvRec.getRefConv(),arrayBooleans);
+                             if(!preconvSing.getAll().containsKey(preconvRec.getRefConv())){
+                                preconvSing.ajouterPreConvention(preconvRec);
+                            System.out.println("enter ens");
                             }else{
-                                validations.get(preconvRec.getRefConv()).add(preconvRec.getRepEn().getValRep());
+                                 preconvSing.getPrevention(preconvRec.getRefConv()).setRepEn(preconvRec.getRepEn());
                             }
                              break;
                     
                         case"Scolarite":
-                             if(!validations.containsKey(preconvRec.getRefConv())){
-                                arrayBooleans.add(preconvRec.getRepSco().getValRep());
-                                validations.put(preconvRec.getRefConv(),arrayBooleans);
+                             if(!preconvSing.getAll().containsKey(preconvRec.getRefConv())){
+                                preconvSing.ajouterPreConvention(preconvRec);
+                            System.out.println("enter sco");
                             }else{
-                                validations.get(preconvRec.getRefConv()).add(preconvRec.getRepSco().getValRep());
+                                 preconvSing.getPrevention(preconvRec.getRefConv()).setRepSco(preconvRec.getRepSco());
                             }
                              break;                            
                 }
+                    System.out.println(" valEN "+preconvSing.getPrevention(preconvRec.getRefConv()).getRepEn().getValRep()+" valJur "+preconvSing.getPrevention(preconvRec.getRefConv()).getRepJur().getValRep()+" val sco "+preconvSing.getPrevention(preconvRec.getRefConv()).getRepSco().getValRep());
                     //envoie vers 
-                    if (preconvRec.isAllRep()) {
+                    if (preconvSing.getPrevention(preconvRec.getRefConv()).isAllRep()) {
                         System.out.println("SENDING TO TOPIC FINAAAAL");
                         preconvSing.depotPreconvTraiteeTopic(preconvRec.getRefConv());
                     }

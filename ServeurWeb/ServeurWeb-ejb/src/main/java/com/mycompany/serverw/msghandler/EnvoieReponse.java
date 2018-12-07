@@ -39,7 +39,7 @@ public class EnvoieReponse implements MessageListener {
     @Override
     public void onMessage(Message message) {
 System.out.println("ICIIII");
-     /*   if (message instanceof ObjectMessage) {
+       if (message instanceof ObjectMessage) {
             try {
                 ObjectMessage om = (ObjectMessage) message;
                 Object obj = om.getObject();
@@ -56,7 +56,7 @@ System.out.println("ICIIII");
             }
         } else {
             System.out.println("non objectMsg sent");
-        } */
+        } 
         
     }
     
