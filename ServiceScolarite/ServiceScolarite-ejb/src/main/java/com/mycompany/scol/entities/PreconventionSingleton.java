@@ -18,6 +18,9 @@ import javax.jms.Queue;
 import javax.jms.Topic;
 import com.mycompany.univshared.utilities.Etudiant;
 import com.mycompany.univshared.utilities.Preconvention;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.jms.JMSException;
 
 /**
  *
@@ -67,8 +70,15 @@ public class PreconventionSingleton {
         System.out.println(prec.getRepSco().getCauseRep());
         prec.getRepSco().setValRep(v);
         prec.getRepSco().setCauseRep(cause);
-        System.out.println(prec.getRefConv() + "validé scolar: to send in queue");
-        context.createProducer().send(queue, prec);
+        System.out.println(prec.getRefConv() + " validé scolar: to send in queue");
+        ObjectMessage obm = context.createObjectMessage();
+        try {
+            obm.setJMSType("Scolarite");
+            obm.setObject(prec);
+        } catch (JMSException ex) {
+            Logger.getLogger(PreconventionSingleton.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        context.createProducer().send(queue, obm);
         return prec;
     }
 

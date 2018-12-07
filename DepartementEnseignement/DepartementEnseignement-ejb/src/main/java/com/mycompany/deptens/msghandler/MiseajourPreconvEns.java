@@ -66,14 +66,15 @@ public class MiseajourPreconvEns implements MessageListener {
         "\n\t diplome préparé: "+p.getDiplome().getIntitule()+"\n\t sujet "+p.getResume()
         ); 
         
-        System.out.println("validez-vous ce sujet? O/N");
+       /*  System.out.println("validez-vous ce sujet? O/N");
         Scanner sc  = new Scanner(System.in);
         String rep = sc.nextLine();
         if(rep=="O"){
             precs.validerEnseignement(p.getRefConv(), true, "");
         }else{
              precs.validerEnseignement(p.getRefConv(), false, "Sujet non adequat à la formation de l etudiant");
-        }
+        }*/
+        precs.validerEnseignement(p, true, "");
         return p;
     }
 }
