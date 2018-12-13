@@ -8,6 +8,7 @@ package com.mycompany.scol.msghandler;
 import com.mycompany.scol.entities.EtudiantsSingleton;
 import com.mycompany.scol.entities.PreconventionSingleton;
 import com.mycompany.univshared.utilities.Diplome;
+import com.mycompany.univshared.utilities.Etudiant;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,10 +53,10 @@ public class MiseajourPreconvScol implements MessageListener {
                 if (obj instanceof Preconvention) {
                     Preconvention prec = (Preconvention) obj;
                     System.out.println("Preconvention " + prec.getRefConv() + " déposée");
-                    
+
                     //déclencher la vérifications : scolarité                      
                     Preconvention p = vérifierEtud(prec);
-                    System.out.println("vérifications scolarité terminés pour " + p.getRefConv()); 
+                    System.out.println("vérifications scolarité terminés pour " + p.getRefConv());
                 }
             } catch (JMSException ex) {
                 Logger.getLogger(MiseajourPreconvScol.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,15 +67,26 @@ public class MiseajourPreconvScol implements MessageListener {
     }
 
     public Preconvention vérifierEtud(Preconvention p) {
-        Diplome diplomePrecon = p.getDiplome();
-        Diplome diplomeReel = p.getEtudiant().getDipActuel();
-        String cause = "";
-        Boolean verifEtud = etdSingl.exists(p.getEtudiant().getNumeroEtudiant());
-       Boolean verifDiplome =  diplomePrecon.getIntitule().equals(diplomeReel.getIntitule());
-        if (!verifDiplome && verifEtud) {
-            cause = "L etudiant mentionne n existe pas, ou son diplome préparé n est pas valide";
+        //verification de l existance de l etudiant et son diplome
+        
+        String num = p.getEtudiant().getNumeroEtudiant();
+        if (etdSingl.exists(num)) {
+            Etudiant etuSing = etdSingl.getEtudiant(num);
+            if (etuSing.getNom().equals(p.getEtudiant().getNom()) && etuSing.getPrenom().equals(p.getEtudiant().getPrenom())) {
+                //etudiant existe bien : vérifier son diplome
+                if (p.getDiplome().getIntitule().equals(etdSingl.getEtudiant(num).getDipActuel().getIntitule())) {
+                    //diplome renseigné conforme a la base
+                    return precs.validerScolarite(p, true, "");
+                } else {
+                    return precs.validerScolarite(p, false, "mauvais diplome renseigné");
+                }
+
+            } else {
+                return precs.validerScolarite(p, false, "nom/prenom etudiant erroné");
+            }
+        } else {
+            return precs.validerScolarite(p, false, "numero etudiant introuvable");
         }
-        return precs.validerScolarite(p, verifDiplome && verifEtud, cause);           
 
     }
 

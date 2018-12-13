@@ -52,7 +52,6 @@ public class PreconventionSingleton {
     public int ajouterPreConvention(String nom, String prenom, String numeroEtudiant, String niveau, String intitule, String compagnie, String numeroContrat, String denomination, String siren, Date debut, Date fin, int gratification, String resume) {      
         Preconvention prec = new Preconvention(lastid, nom, prenom, numeroEtudiant, niveau, intitule, compagnie, numeroContrat, denomination, siren, debut, fin, gratification, resume);
         this.preconvs.put(lastid, prec);
-        System.out.println("preconv ajouté");
         deposerPreconv(lastid);
         this.lastid ++;        
         return prec.getRefConv();
@@ -106,7 +105,6 @@ public class PreconventionSingleton {
         Preconvention prec = preconvs.get(refPrec);
         ObjectMessage om = context.createObjectMessage(prec);
         context.createProducer().send(topic, prec);
-        System.out.println("msg send to topic");
         return prec;
     }
 }

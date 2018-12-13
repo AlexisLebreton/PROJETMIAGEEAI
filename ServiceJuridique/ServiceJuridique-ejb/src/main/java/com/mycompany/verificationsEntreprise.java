@@ -57,6 +57,7 @@ public class verificationsEntreprise {
             }
             result="siren found";
             }
+        System.out.println("SIREN !!!!"+result);
       return result;
     }
   

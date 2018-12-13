@@ -37,14 +37,13 @@ public class MiseajourPreconvJuridique implements MessageListener {
     @EJB
     PreconventionSingleton precs;
 
-    public traitementMetier juridique = new traitementMetier();
+    public traitementMetier juridique ;
 
     public MiseajourPreconvJuridique() {
     }
 
     @Override
     public void onMessage(Message message) {
-        System.out.println("on msg jurdique");
 
         if (message instanceof ObjectMessage) {
             try {
@@ -52,11 +51,10 @@ public class MiseajourPreconvJuridique implements MessageListener {
                 Object obj = om.getObject();
                 if (obj instanceof Preconvention) {
                     Preconvention prec = (Preconvention) obj;
-                    System.out.println("Preconvention " + prec.getRefConv() + " déposée");
 
                     //déclencher lA vérification
                     Preconvention p = this.validationJuridique(prec);
-                    System.out.println("vérifications terminés pour " + prec.toString());
+                    System.out.println("vérifications juridiques terminés pour " + prec.toString());
                 }
             } catch (JMSException ex) {
                 Logger.getLogger(MiseajourPreconvJuridique.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,12 +65,12 @@ public class MiseajourPreconvJuridique implements MessageListener {
     }
 
     public Preconvention validationJuridique(Preconvention p) {
-        Boolean validEntreprise = !verificationsEntreprise.getSIREN(p.getEntreprise().getSiren()).equals("");
-        //Boolean interm = juridique.gratificationOK(p);
-        //System.out.println(interm);
-         Boolean finV = juridique.periodeStageOK(p) && juridique.gratificationOK(p)&& validEntreprise;
-        //a garder celui en commentaire
+        juridique =new traitementMetier();
+        
+        //récupérer les boolean des 3 vérifications
+        Boolean finV = juridique.periodeStageOK(p) && juridique.gratificationOK(p)&& juridique.sirenOK(p);
+        
         return precs.validerJuridique(p, finV, p.getRepJur().getCauseRep());
-       // return precs.validerJuridique(p, true, "");
+       
     }
 }

@@ -7,6 +7,7 @@ package com.mycompany.deptens.msghandler;
 
 
 import com.mycompany.deptens.entities.PreconventionSingleton;
+import com.mycompany.univshared.utilities.Etudiant;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
@@ -41,7 +42,6 @@ public class MiseajourPreconvEns implements MessageListener {
     
     @Override
     public void onMessage(Message message) {
-        System.out.println("here");
            if (message instanceof ObjectMessage) {
              try {
                  ObjectMessage om = (ObjectMessage) message;
@@ -50,9 +50,9 @@ public class MiseajourPreconvEns implements MessageListener {
                      Preconvention prec = (Preconvention) obj;
                      System.out.println("Preconvention " + prec.getRefConv() + " déposée");
                      
-                     //déclencher lA vérification
+                     //déclencher lA vérification d enseignement
                      Preconvention p = vérifier(prec);
-                     System.out.println("vérifications terminés pour ");
+                     System.out.println("vérifications enseignements terminés pour ");
                  }
              } catch (JMSException ex) {
                  Logger.getLogger(MiseajourPreconvEns.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,15 +65,6 @@ public class MiseajourPreconvEns implements MessageListener {
        System.out.println("Voici les détails de la pre convention \n \t Nom prenom étudiant:"+p.getEtudiant().getPrenom()+" "+p.getEtudiant().getNom()+
         "\n\t diplome préparé: "+p.getDiplome().getIntitule()+"\n\t sujet "+p.getResume()
         ); 
-        
-       /*  System.out.println("validez-vous ce sujet? O/N");
-        Scanner sc  = new Scanner(System.in);
-        String rep = sc.nextLine();
-        if(rep=="O"){
-            precs.validerEnseignement(p.getRefConv(), true, "");
-        }else{
-             precs.validerEnseignement(p.getRefConv(), false, "Sujet non adequat à la formation de l etudiant");
-        }*/
         precs.validerEnseignement(p, true, "");
         return p;
     }

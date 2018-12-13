@@ -16,12 +16,13 @@ import javax.ejb.EJB;
  */
 public class traitementMetier {
     
-    private static String cause = "";
+    private static String cause ;
     
     @EJB
     PreconventionSingleton ps;
 
     public traitementMetier() {
+        cause="";
     }
     
     
@@ -29,14 +30,13 @@ public class traitementMetier {
     vérifie si la durée du stage ne dépasse pas 6 mois et que le stage ne se déroule pas sur 2 annes uiv.
     */
         public  Boolean periodeStageOK(Preconvention p){
-        long duree = p.getDureeStage();
+        long duree = p.getDureeStage()/30;
         System.out.println(duree);
-        int an1 = p.getDebut().getYear();        
-        int an2 = p.getFin().getYear();
-        if(! (duree < 7  && an1==an2)){
+        if(! (duree < 7 )){
             traitementMetier.cause += " Periode de stage non conforme";
+            p.getRepJur().setCauseRep(traitementMetier.cause );
         }
-        return duree < 7  && an1==an2;
+        return duree < 7 ;
     }
     
         /*
@@ -48,19 +48,21 @@ public class traitementMetier {
         if(p.getDureeStage() > 2 ){
             if(p.getGratification()==0){
             traitementMetier.cause += " gratification non conforme";
+            p.getRepJur().setCauseRep(traitementMetier.cause );
             conforme=false;
             }
         }
        return conforme ;
     }
     
-    public  Preconvention validationJuridique(Preconvention p){
-        System.out.println("SIREN DEMANDE "+p.getEntreprise().getSiren());
-        Boolean validEntreprise = !verificationsEntreprise.getSIREN(p.getEntreprise().getSiren()).equals("");
-     // Boolean finV = periodeStageOK(p) && gratificationOK(p)&& validEntreprise;
-      //a garder celui en commentaire
-      //return ps.validerJuridique(p.getRefConv(), finV, traitementMetier.cause);
-      return ps.validerJuridique(p, validEntreprise, "");      
+    public Boolean sirenOK(Preconvention p){
+        Boolean verifSiren = !verificationsEntreprise.getSIREN(p.getEntreprise().getSiren()).equals("");
+        if(!verifSiren){
+            traitementMetier.cause += " Siren introuvable";
+            p.getRepJur().setCauseRep(traitementMetier.cause );
+        }
+        return verifSiren;
     }
+    
 }
 

@@ -64,7 +64,7 @@ public class PreconventionSingleton {
     }
 
     public Preconvention validerEnseignement(Preconvention prec, boolean b, String cause) {
-        System.out.println("OKKKKK "+prec.getRefConv());
+        
         prec.getRepEn().setValRep(b);
         prec.getRepEn().setCauseRep(cause);
         ObjectMessage obm = context.createObjectMessage();

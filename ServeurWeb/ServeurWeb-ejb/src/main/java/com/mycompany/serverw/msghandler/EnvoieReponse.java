@@ -38,18 +38,15 @@ public class EnvoieReponse implements MessageListener {
     
     @Override
     public void onMessage(Message message) {
-System.out.println("ICIIII");
        if (message instanceof ObjectMessage) {
             try {
                 ObjectMessage om = (ObjectMessage) message;
                 Object obj = om.getObject();
                 if (obj instanceof Preconvention) {
                     Preconvention prec = (Preconvention) obj;
-                    System.out.println("Preconvention " + prec.getRefConv() + " déposée");
 
                     //déclencher la réponse finale
                      preconvSing.majPreConvention(prec);
-                    System.out.println("envoi finale vers le serveur Web" + prec.toString());
                 }
             } catch (JMSException ex) {
                 Logger.getLogger(EnvoieReponse.class.getName()).log(Level.SEVERE, null, ex);

@@ -67,8 +67,6 @@ public class PreconventionSingleton {
 
     public Preconvention validerScolarite(Preconvention prec, boolean v, String cause) {
 
-        System.out.println("verif cote singleton scol "+v);
-        System.out.println(prec.getRepSco().getCauseRep());
         prec.getRepSco().setValRep(v);
         prec.getRepSco().setCauseRep(cause);
         System.out.println(prec.getRefConv() + " validé scolar: to send in queue");

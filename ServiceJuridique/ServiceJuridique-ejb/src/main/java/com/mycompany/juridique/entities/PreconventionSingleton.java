@@ -48,7 +48,6 @@ public class PreconventionSingleton {
     }
 
     public Preconvention validerJuridique(Preconvention prec, boolean v, String cause) {
-        System.out.println("preparing to send to queue after update juridique");
         prec.getRepJur().setValRep(v);
         prec.getRepJur().setCauseRep(cause);
         ObjectMessage obm = context.createObjectMessage();
