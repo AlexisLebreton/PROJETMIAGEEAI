@@ -42,6 +42,7 @@ public class MiseajourPreconvJuridique implements MessageListener {
     public MiseajourPreconvJuridique() {
     }
 
+    //reception et lancement des traitements de la préconvention 
     @Override
     public void onMessage(Message message) {
 
@@ -69,7 +70,7 @@ public class MiseajourPreconvJuridique implements MessageListener {
         
         //récupérer les boolean des 3 vérifications
         Boolean finV = juridique.periodeStageOK(p) && juridique.gratificationOK(p)&& juridique.sirenOK(p);
-        
+        //envoie de la preconvention
         return precs.validerJuridique(p, finV, p.getRepJur().getCauseRep());
        
     }

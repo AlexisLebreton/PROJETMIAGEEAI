@@ -13,8 +13,8 @@ import java.io.Serializable;
  */
 public class Entreprise implements Serializable {
     
-    private String denomination;
-    private String siren;
+    private String denomination; // EDF
+    private String siren; // 2132145
 
     public Entreprise(String denomination, String siren) {
         this.denomination = denomination;

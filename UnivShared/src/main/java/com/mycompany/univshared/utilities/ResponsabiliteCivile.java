@@ -13,8 +13,8 @@ import java.io.Serializable;
  */
 public class ResponsabiliteCivile implements Serializable {
     
-    private String compagnie;
-    private String numeroContrat;
+    private String compagnie; // MATMUT
+    private String numeroContrat; // 321343255
 
     public ResponsabiliteCivile(String compagnie, String numeroContrat) {
         this.compagnie = compagnie;

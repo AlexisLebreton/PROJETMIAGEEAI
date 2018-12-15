@@ -23,6 +23,7 @@ import javax.jms.Topic;
 /**
  *
  * @author ben
+ * stocke verifie et envoie les preconventions de server web
  */
 @Singleton
 @LocalBean

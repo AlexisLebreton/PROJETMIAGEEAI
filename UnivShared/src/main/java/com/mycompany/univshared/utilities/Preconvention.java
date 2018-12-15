@@ -19,16 +19,16 @@ import javax.annotation.Resource;
  */
 public class Preconvention implements Serializable {
 
-    private int refConv;
-    private Etudiant etudiant;
-    private Diplome diplome;
-    private ResponsabiliteCivile responsabiliteCivile;
-    private Entreprise entreprise;
-    private long gratification;
-    private Date debut;
-    private Date fin;
-    private String resume;
-    private ReponseTraitPrec RepJur;
+    private int refConv; // 1
+    private Etudiant etudiant; // Maha chaouch 123
+    private Diplome diplome; // M2 MIAGE
+    private ResponsabiliteCivile responsabiliteCivile; // MATMUT 123455
+    private Entreprise entreprise; // EDF 3431662346
+    private long gratification; // 1233.4
+    private Date debut; // 12/05/2018
+    private Date fin; // 12/06/2018
+    private String resume; // bla bla
+    private ReponseTraitPrec RepJur; 
     private ReponseTraitPrec RepEn;
     private ReponseTraitPrec RepSco;
 
@@ -47,6 +47,7 @@ public class Preconvention implements Serializable {
         this.RepSco = new ReponseTraitPrec();
     }
     
+    // retourne l'état de la préconvention en fonction des validation qu'elle possède
     public String getEtatPreconv(){
         if (this.RepJur.getValRep() == null && this.RepEn.getValRep() == null && this.RepSco.getValRep() == null){
             return "En cours de traitement";

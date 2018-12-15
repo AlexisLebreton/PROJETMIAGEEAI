@@ -36,6 +36,7 @@ public class EnvoieReponse implements MessageListener {
     public EnvoieReponse() {
     }
     
+    //reception et mise à jour du singleton du serverweb
     @Override
     public void onMessage(Message message) {
        if (message instanceof ObjectMessage) {

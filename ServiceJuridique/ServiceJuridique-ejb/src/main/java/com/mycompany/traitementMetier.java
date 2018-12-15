@@ -55,6 +55,9 @@ public class traitementMetier {
        return conforme ;
     }
     
+    /*
+        utilise une api afin de vérifier le siren d'une preconvention
+        */
     public Boolean sirenOK(Preconvention p){
         Boolean verifSiren = !verificationsEntreprise.getSIREN(p.getEntreprise().getSiren()).equals("");
         if(!verifSiren){

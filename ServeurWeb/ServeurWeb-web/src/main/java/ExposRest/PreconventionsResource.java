@@ -44,6 +44,7 @@ public class PreconventionsResource {
     /**
      * Retrieves representation of an instance of ExposRest.PreconventionsResource
      * @return an instance of java.lang.String
+     * recuperer la liste des préconventions
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -55,6 +56,7 @@ public class PreconventionsResource {
     /**
      * PUT method for updating or creating an instance of PreconventionsResource
      * @param content representation for the resource
+     * ajout d'une préconvention 
      */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -65,6 +67,7 @@ public class PreconventionsResource {
         return numPreconv+"";
     }
     
+    // acces au singleton de l'ejb
     private PreconventionSingleton lookupPreconventionSingletonBean() {
         try {
             javax.naming.Context c = new InitialContext();

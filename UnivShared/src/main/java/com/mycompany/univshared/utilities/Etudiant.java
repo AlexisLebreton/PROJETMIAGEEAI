@@ -15,10 +15,10 @@ import java.util.HashMap;
 
 public class Etudiant implements Serializable{
       
-    private String nom;
-    private String prenom;
-    private String numeroEtudiant;
-    private Diplome diplomeActuel;
+    private String nom; //Chaouch
+    private String prenom; //Maha
+    private String numeroEtudiant; //123
+    private Diplome diplomeActuel; // Diplome enregistré (scolarité)
 
     public Etudiant(String nom, String prenom, String numeroEtudiant) {
         this.nom = nom;

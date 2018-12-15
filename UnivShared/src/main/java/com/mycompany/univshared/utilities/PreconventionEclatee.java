@@ -14,6 +14,7 @@ import java.util.Date;
 /**
  *
  * @author Alexis LEBRETON
+ * Cette classe a pour seul but d'accueilir les donnée recu en REST
  */
 public class PreconventionEclatee implements Serializable {
 

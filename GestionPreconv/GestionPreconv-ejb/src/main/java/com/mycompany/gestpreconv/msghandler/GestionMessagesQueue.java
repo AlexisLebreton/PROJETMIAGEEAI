@@ -39,6 +39,7 @@ public class GestionMessagesQueue implements MessageListener {
     public GestionMessagesQueue() {
     }
 
+    //reception et lancement des traitements de la préconvention 
     @Override
     public void onMessage(Message message) {
         System.out.println("msg in queue: to handle by gestion preconv");
@@ -49,7 +50,7 @@ public class GestionMessagesQueue implements MessageListener {
                 Object obj = om.getObject();
                 if (obj instanceof Preconvention) {
                     Preconvention preconvRec = (Preconvention) obj;
-                    
+                    // traitement selon la source (type) du message
                     switch(type){
                         case "Juridique":
                             if(!preconvSing.getAll().containsKey(preconvRec.getRefConv())){
@@ -76,7 +77,7 @@ public class GestionMessagesQueue implements MessageListener {
                             }
                              break;                            
                 }
-                    //envoie vers topic des résultat
+                    // si préconvention recu des trois pole, envoie vers topic des résultat
                     if (preconvSing.getPrevention(preconvRec.getRefConv()).isAllRep()) {
                         preconvSing.depotPreconvTraiteeTopic(preconvRec.getRefConv());
                     }

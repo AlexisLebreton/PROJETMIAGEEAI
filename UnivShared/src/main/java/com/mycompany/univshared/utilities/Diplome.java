@@ -13,8 +13,8 @@ import java.io.Serializable;
  */
 public class Diplome implements Serializable{
     
-    private String niveau;
-    private String intitule;
+    private String niveau; // M1 , L3 , ...
+    private String intitule; // MIAGE 
 
     public Diplome(String niveau, String intitule) {
         this.niveau = niveau;

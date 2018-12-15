@@ -44,6 +44,7 @@ public class PreconventionResource {
     /**
      * Retrieves representation of an instance of ExposRest.PreconventionResource
      * @return an instance of java.lang.String
+     * recuperer l'état d'une préconventions enregistrés
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -66,7 +67,7 @@ public class PreconventionResource {
     public void putJson(String content) {
     }
     
-    
+    // acces au singleton de l'ejb
      private PreconventionSingleton lookupPreconventionSingletonBean() {
         try {
             javax.naming.Context c = new InitialContext();

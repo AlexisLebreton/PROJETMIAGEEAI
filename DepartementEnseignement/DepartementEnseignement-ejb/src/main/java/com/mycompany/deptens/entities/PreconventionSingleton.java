@@ -24,15 +24,18 @@ import javax.jms.JMSException;
 
 /**
  *
- * @author ben
+ * @author alexis
+ * stocke verifie et envoie les preconventions de departement enseignement
  */
 @Singleton
 @LocalBean
 public class PreconventionSingleton {
 
+    // topic source de ses preconventions à valider
     @Resource(lookup = "PreconventionDeposee")
     private Topic topic;
 
+    // queu destination de ses preconventions validés
     @Resource(lookup = "GestionnairePreconventions")
     private Queue queue;
 
@@ -63,17 +66,20 @@ public class PreconventionSingleton {
         this.lastid++;
     }
 
+    // envoie de la preconvention
     public Preconvention validerEnseignement(Preconvention prec, boolean b, String cause) {
-        
+        // création du message
         prec.getRepEn().setValRep(b);
         prec.getRepEn().setCauseRep(cause);
         ObjectMessage obm = context.createObjectMessage();
+        // typage jms
         try {
             obm.setJMSType("Enseignement");
             obm.setObject(prec);
         } catch (JMSException ex) {
             Logger.getLogger(PreconventionSingleton.class.getName()).log(Level.SEVERE, null, ex);
         }
+        // envoie
         context.createProducer().send(queue, obm);
         return prec;
     }

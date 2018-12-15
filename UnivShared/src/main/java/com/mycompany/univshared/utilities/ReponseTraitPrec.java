@@ -13,8 +13,8 @@ import java.io.Serializable;
  */
 public class ReponseTraitPrec implements Serializable{
     
-    private Boolean valRep;
-    private String causeRep;
+    private Boolean valRep; // true false
+    private String causeRep; // cause qui justifi le refus / nom du professeur en cas de validation de dep enseignement
 
     public ReponseTraitPrec(Boolean valRep, String causeRep) {
  

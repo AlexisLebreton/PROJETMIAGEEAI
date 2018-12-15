@@ -13,6 +13,7 @@ import com.mycompany.univshared.utilities.Etudiant;
 /**
  *
  * @author maha-
+ * Singleton stocke les Etudiants du departement enseignement
  */
 
 @Singleton
@@ -20,6 +21,7 @@ import com.mycompany.univshared.utilities.Etudiant;
 public class EtudiantsSingleton {
     
     private HashMap<String, Etudiant> etds = new HashMap<>();
+    // exemple d'étudiant stocké
     public Etudiant e1 = new Etudiant("CHAOUCH","Maha","123");
     public  Etudiant e2 = new Etudiant("LEBRETON","Alexis","124");
 

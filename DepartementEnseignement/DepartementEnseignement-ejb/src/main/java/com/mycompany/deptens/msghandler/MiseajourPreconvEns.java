@@ -40,6 +40,7 @@ public class MiseajourPreconvEns implements MessageListener {
     public MiseajourPreconvEns() {
     }
     
+    //reception et lancement des traitements de la préconvention 
     @Override
     public void onMessage(Message message) {
            if (message instanceof ObjectMessage) {
@@ -61,7 +62,8 @@ public class MiseajourPreconvEns implements MessageListener {
 
         }
     
-        public Preconvention vérifier(Preconvention p){
+    // traitements (TODO) et envoie de la preconvention
+    public Preconvention vérifier(Preconvention p){
        System.out.println("Voici les détails de la pre convention \n \t Nom prenom étudiant:"+p.getEtudiant().getPrenom()+" "+p.getEtudiant().getNom()+
         "\n\t diplome préparé: "+p.getDiplome().getIntitule()+"\n\t sujet "+p.getResume()
         ); 

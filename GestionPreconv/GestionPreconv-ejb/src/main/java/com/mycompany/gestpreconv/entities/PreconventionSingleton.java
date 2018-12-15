@@ -21,11 +21,13 @@ import javax.jms.Topic;
 
 /**
  *
- * @author ben
+ * @author alexis
+ * stocke verifie et envoie les preconventions de gestion preconv
  */
 @Singleton
 @LocalBean
 public class PreconventionSingleton {
+    
     @Resource(lookup = "PreconventionDeposee")
     private Topic topicPreconvDeposee;
     
